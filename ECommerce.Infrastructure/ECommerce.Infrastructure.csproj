@@ -9,10 +9,12 @@
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="Concrete\" />
+    <None Remove="Config\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Concrete\" />
+    <Folder Include="Config\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
