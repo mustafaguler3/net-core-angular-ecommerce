@@ -1,6 +1,7 @@
 ﻿
 using System;
 using Ecommerce.Core.Entities;
+using ECommerce.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Data
@@ -12,6 +13,8 @@ namespace Ecommerce.Infrastructure.Data
 		}
 
 		public DbSet<Product> Products { get; set; }
+		public DbSet<ProductType> ProductTypes { get; set; }
+		public DbSet<ProductBrand> ProductBrands { get; set; }
 	}
 }
 
