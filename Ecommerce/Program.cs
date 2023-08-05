@@ -1,5 +1,6 @@
 ﻿
 using Ecommerce.API.Mapper;
+using Ecommerce.API.Middleware;
 using Ecommerce.Infrastructure.Data;
 using ECommerce.Core.Abstract;
 using ECommerce.Infrastructure.Concrete;
@@ -42,6 +43,8 @@ builder.Services.AddDbContext<StoreContext>(i =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

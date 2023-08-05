@@ -40,6 +40,7 @@
     <None Remove="Mapper\" />
     <None Remove="Errors\" />
     <None Remove="Exception\" />
+    <None Remove="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json" Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'">
@@ -51,5 +52,6 @@
     <Folder Include="Mapper\" />
     <Folder Include="Errors\" />
     <Folder Include="Exception\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
 </Project>
