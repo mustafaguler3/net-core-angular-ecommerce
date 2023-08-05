@@ -34,8 +34,14 @@
     <Content Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Dtos\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="appsettings.json" Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dtos\" />
   </ItemGroup>
 </Project>

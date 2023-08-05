@@ -2,6 +2,7 @@
 using Ecommerce.Core.Entities;
 using ECommerce.Core.Abstract;
 using ECommerce.Core.Entities;
+using ECommerce.Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -20,14 +21,17 @@ namespace Ecommerce.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
+            var spec = new ProductWithTypesAndBrandsSpecification();
             var products = await _productRepository.GetProductsAsync();
 
             return Ok(products);
         }
-
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
+
             return await _productRepository.GetProductByIdAsync(id);
         }
 
