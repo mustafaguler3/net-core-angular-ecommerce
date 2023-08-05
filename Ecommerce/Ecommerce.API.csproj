@@ -23,6 +23,8 @@
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +37,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Dtos\" />
+    <None Remove="Mapper\" />
+    <None Remove="Errors\" />
+    <None Remove="Exception\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json" Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'">
@@ -43,5 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dtos\" />
+    <Folder Include="Mapper\" />
+    <Folder Include="Errors\" />
+    <Folder Include="Exception\" />
   </ItemGroup>
 </Project>

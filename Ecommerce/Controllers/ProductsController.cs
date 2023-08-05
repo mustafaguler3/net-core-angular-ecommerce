@@ -1,4 +1,6 @@
 ﻿using System;
+using AutoMapper;
+using Ecommerce.API.Dtos;
 using Ecommerce.Core.Entities;
 using ECommerce.Core.Abstract;
 using ECommerce.Core.Entities;
@@ -12,19 +14,21 @@ namespace Ecommerce.API.Controllers
 	public class ProductsController : ControllerBase
 	{
 		private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(IProductRepository productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<List<ProductDto>>> GetProducts()
         {
             var spec = new ProductWithTypesAndBrandsSpecification();
             var products = await _productRepository.GetProductsAsync();
 
-            return Ok(products);
+            return Ok(_mapper.Map<List<ProductDto>>(products));
         }
         
         [HttpGet("{id}")]
