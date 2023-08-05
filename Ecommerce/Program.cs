@@ -1,10 +1,12 @@
 ﻿
+using Ecommerce.API.Errors;
 using Ecommerce.API.Mapper;
 using Ecommerce.API.Middleware;
 using Ecommerce.Infrastructure.Data;
 using ECommerce.Core.Abstract;
 using ECommerce.Infrastructure.Concrete;
 using ECommerce.Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +38,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.Configure<ApiBehaviorOptions>(opt =>
+{
+    opt.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+        .Where(i => i.Value.Errors.Count > 0)
+        .SelectMany(i => i.Value.Errors)
+        .Select(i => i.ErrorMessage).ToArray();
+
+        var errorResponse = new ApiValidationErrorResponse()
+        {
+            Errors = errors
+        };
+
+        return new BadRequestObjectResult(errorResponse);
+    };
+});
 
 builder.Services.AddDbContext<StoreContext>(i =>
 {
