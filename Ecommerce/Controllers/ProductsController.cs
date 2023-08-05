@@ -1,6 +1,7 @@
 ﻿using System;
 using Ecommerce.Core.Entities;
 using ECommerce.Core.Abstract;
+using ECommerce.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -30,6 +31,17 @@ namespace Ecommerce.API.Controllers
             return await _productRepository.GetProductByIdAsync(id);
         }
 
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+        {
+            return Ok(await _productRepository.GetProductBrandsAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductTypes()
+        {
+            return Ok(await _productRepository.GetProductTypesAsync());
+        }
     }
 }
 
