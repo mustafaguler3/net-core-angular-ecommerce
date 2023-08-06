@@ -13,20 +13,21 @@ namespace Ecommerce.API.Controllers
 	[ApiController]
 	public class ProductsController : ControllerBase
 	{
-		private readonly IProductRepository _productRepository;
+		private readonly IGenericRepository<Product> _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductsController(IProductRepository productRepository,IMapper mapper)
+        public ProductsController(IGenericRepository<Product> productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductDto>>> GetProducts()
+        public async Task<ActionResult<List<ProductDto>>> GetProducts(string sort,int? brandId,int? typeId)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification();
-            var products = await _productRepository.GetProductsAsync();
+            var spec = new ProductWithTypesAndBrandsSpecification(sort,brandId,typeId);
+
+            var products = await _productRepository.ListAsync(spec);
 
             return Ok(_mapper.Map<List<ProductDto>>(products));
         }
