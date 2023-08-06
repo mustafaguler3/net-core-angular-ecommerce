@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Ecommerce.API.Dtos;
+using Ecommerce.API.Helpers;
 using Ecommerce.Core.Entities;
 using ECommerce.Core.Abstract;
 using ECommerce.Core.Entities;
@@ -23,13 +24,19 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductDto>>> GetProducts(string sort,int? brandId,int? typeId)
+        public async Task<ActionResult<List<ProductDto>>> GetProducts(ProductSpecParams productParams)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification(sort,brandId,typeId);
+            var spec = new ProductWithTypesAndBrandsSpecification(productParams);
+
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+
+            var totalItems = await _productRepository.CountAsync(countSpec);
 
             var products = await _productRepository.ListAsync(spec);
 
-            return Ok(_mapper.Map<List<ProductDto>>(products));
+            var data = _mapper.Map<List<ProductDto>>(products);
+
+            return Ok(new Pagination<ProductDto>(productParams.PageIndex,productParams.PageSize,totalItems,data));
         }
         
         [HttpGet("{id}")]
