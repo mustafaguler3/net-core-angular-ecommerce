@@ -16,7 +16,7 @@ namespace ECommerce.Core.Specifications
             AddInclude(x => x.ProductBrand);
         }
 
-        public ProductWithTypesAndBrandsSpecification(ProductSpecParams productParams):base(x => (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) && (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId))
+        public ProductWithTypesAndBrandsSpecification(ProductSpecParams productParams):base(x => (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&(!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) && (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId))
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
